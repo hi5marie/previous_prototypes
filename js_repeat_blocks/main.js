@@ -15,11 +15,15 @@ var students = {
 
 function initializeApp(){
     console.log('Initializing App...');
+    var forwardDiv = $("#forward-loop");
+    for(var numIndex=0; numIndex<numbers.length; numIndex++){
+        forwardDiv.append(numbers[numIndex] + ' ');
+    };
+    var reverseDiv = $("#reverse-loop");
+    for(var revIndex=numbers.length-1; revIndex>=0; revIndex--){
+        reverseDiv.append(numbers[revIndex] + ' ');
+    }
 
-    
-
-    
-    
     // Keep these at the bottom of initializeApp
     displayStudentData();
     buildGameBoard();
@@ -27,15 +31,52 @@ function initializeApp(){
 }
 
 function displayStudentData(){
-    
+    var totalStudentCount = 0;
+    var totalGrade = 0;
+    for(var myKey in students){
+        totalStudentCount++;
+        totalGrade = totalGrade + students[myKey].grade;
+    }
+    var classAverage = totalGrade / totalStudentCount;
+    $("#student-count").text(totalStudentCount);
+    $("#student-average").text(classAverage.toFixed(2) + '%');
+
+
 }
 
 function buildGameBoard(){
     var boardSize = { rows: 8, squares: 8 };
     var gameBoard = $('#game-board');
+    //make nsomething to store what hte last color was
+    var lastColor;
+    for(var iRow=0; iRow<8; iRow++){
+        var row = $("<div>").addClass('row');
 
+        gameBoard.append(row);
+
+        for(var iSquare=0; iSquare<8; iSquare++){
+            var square = $("<div>").addClass('square');
+            //add light or add dark
+            //check whether the last square was light or not
+            if(lastColor==='light'){
+                square.addClass('dark');
+                lastColor = 'dark';
+            }else{
+                square.addClass('light');
+                lastColor = 'light';
+            }
+
+            row.append(square);
+        }
+        if(lastColor==='light'){
+            lastColor = 'dark';
+        }else{
+            lastColor = 'light';
+        }
+    }
     
 }
+
 
 function bubbleSort(dataArray){
     
