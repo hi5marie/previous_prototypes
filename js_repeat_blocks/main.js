@@ -47,16 +47,14 @@ function displayStudentData(){
 function buildGameBoard(){
     var boardSize = { rows: 8, squares: 8 };
     var gameBoard = $('#game-board');
-    //make nsomething to store what hte last color was
-    var lastColor;
+    var lastColor; // stores what the last color was
     for(var iRow=0; iRow<8; iRow++){
         var row = $("<div>").addClass('row');
 
         gameBoard.append(row);
 
         for(var iSquare=0; iSquare<8; iSquare++){
-            var square = $("<div>").addClass('square');
-            //add light or add dark
+            var square = $("<div>").addClass('square'); // add colors to squares, alternate light & dark
             //check whether the last square was light or not
             if(lastColor==='light'){
                 square.addClass('dark');
@@ -65,7 +63,6 @@ function buildGameBoard(){
                 square.addClass('light');
                 lastColor = 'light';
             }
-
             row.append(square);
         }
         if(lastColor==='light'){
